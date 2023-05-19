@@ -5,15 +5,13 @@ const props = defineProps(['info'])
 const getCapitalName = computed(() => {
   return props.info.capital == undefined ? 'not found' : props.info.capital[0]
 })
-
-console.log(props.info)
 </script>
 <template>
   <figure class="max-w-[300px] rounded-lg overflow-hidden shadow-md">
     <img
       class="object-fill w-[300px] h-[200px]"
-      :src="props.info.flags.svg"
-      :alt="props.info.flags.alt"
+      :src="props.info.flags.svg && props.info.flags.png"
+      :alt="props.info.flags.alt && `Image of the flag of ${props.info.name.common}`"
     />
     <figcaption class="flex flex-col p-5">
       <h2 class="text-lg font-bold py-1">{{ props.info.name.common }}</h2>
