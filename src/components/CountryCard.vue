@@ -1,13 +1,22 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import InformationCard from './InformationCard.vue'
+
 const props = defineProps(['info'])
+
+const showMoreInfo = ref(false)
 
 const getCapitalName = computed(() => {
   return props.info.capital == undefined ? 'not found' : props.info.capital[0]
 })
+
+const clicked = (val) => {
+  showMoreInfo.value = val
+}
 </script>
 <template>
-  <figure class="max-w-[250px] rounded-md overflow-hidden shadow-md">
+  <InformationCard :info="props.info" v-if="showMoreInfo" @close="clicked()" />
+  <figure class="max-w-[250px] rounded-md overflow-hidden shadow-md" @click="clicked(true)">
     <img
       class="object-cover w-[250px] h-40"
       :src="props.info.flags.svg && props.info.flags.png"
