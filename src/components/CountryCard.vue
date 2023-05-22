@@ -10,13 +10,13 @@ const getCapitalName = computed(() => {
   return props.info.capital == undefined ? 'not found' : props.info.capital[0]
 })
 
-const clicked = (val) => {
+const clicked = (val = true) => {
   showMoreInfo.value = val
 }
 </script>
 <template>
-  <InformationCard :info="props.info" v-if="showMoreInfo" @close="clicked()" />
-  <figure class="max-w-[250px] rounded-md overflow-hidden shadow-md" @click="clicked(true)">
+  <InformationCard :info="props.info" v-if="showMoreInfo" @close="clicked($event)" />
+  <figure class="max-w-[250px] rounded-md overflow-hidden shadow-md" @click="clicked">
     <img
       class="object-cover w-[250px] h-40"
       :src="props.info.flags.svg && props.info.flags.png"
