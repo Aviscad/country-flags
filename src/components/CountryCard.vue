@@ -16,7 +16,10 @@ const clicked = (val = true) => {
 </script>
 <template>
   <InformationCard :info="props.info" v-if="showMoreInfo" @close="clicked($event)" />
-  <figure class="max-w-[250px] rounded-md overflow-hidden shadow-md" @click="clicked">
+  <figure
+    class="max-w-[250px] rounded-md overflow-hidden shadow-md transition-transform cursor-pointer hover:scale-105"
+    @click="clicked"
+  >
     <img
       class="object-cover w-[250px] h-40"
       :src="props.info.flags.svg && props.info.flags.png"

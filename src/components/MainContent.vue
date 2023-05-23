@@ -1,23 +1,28 @@
 <script setup>
 import CountryCard from './CountryCard.vue'
 import SearchBar from './SearchBar.vue'
+import { countries } from '../data/countriesV3.1.json'
 import { ref, watch } from 'vue'
 
-const data = ref(null)
+const data = ref([])
 const countryList = ref(null)
 const searchText = ref('')
 const selectedRegion = ref('')
 
 const getCountries = () => {
-  fetch('https://restcountries.com/v3.1/all')
-    .then((json) => json.json())
-    .then((res) => {
-      data.value = res
-    })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      countryList.value = data.value
-    })
+  // fetch('https://restcountries.com/v3.1/all')
+  //   .then((json) => json.json())
+  //   .then((res) => {
+  //     data.value = res
+  //   })
+  //   .catch((err) => console.log(err))
+  //   .finally(() => {
+  //     countryList.value = data.value
+  //   })
+  //console.log(Object.keys(countries))
+  //console.log(Object.entries(countries))
+  Object.entries(countries).map((c) => data.value.push(c[1]))
+  countryList.value = data.value
 }
 
 const filterByRegion = () => {
