@@ -10,7 +10,8 @@ const close = () => {
 }
 </script>
 <template>
-  <div class="fixed top-0 left-0 h-full w-full bg-slate-200 z-10 p-5">
+  <!-- Modal gets lost when scrolling -->
+  <div class="absolute h-full w-full bg-slate-200 z-10 p-5">
     <button @click="close" class="border border-gray-500 rounded-md px-2">Back</button>
     <div>
       <h3>{{ props.info.name.common }}</h3>

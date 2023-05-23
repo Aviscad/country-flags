@@ -64,10 +64,14 @@ getCountries()
 </script>
 <template>
   <main>
-    <SearchBar @search="searchText = $event" @region="selectedRegion = $event" />
     <section
-      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-5"
+      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-5 absolute w-full"
     >
+      <SearchBar
+        @search="searchText = $event"
+        @region="selectedRegion = $event"
+        class="w-full col-span-full row-span-full"
+      />
       {{ searchResultText() }}
       <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
     </section>
