@@ -65,7 +65,7 @@ getCountries()
 <template>
   <main>
     <section
-      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-5 absolute w-full"
+      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-5 pt-16 w-full"
     >
       <SearchBar
         @search="searchText = $event"

@@ -1,10 +1,10 @@
 <script setup>
-import Header from '../src/components/Header.vue'
+import HeaderComponent from './components/HeaderComponent.vue'
 import MainContent from './components/MainContent.vue'
 </script>
 
 <template>
-  <Header />
+  <HeaderComponent />
   <MainContent />
 </template>
 
