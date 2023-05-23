@@ -26,13 +26,19 @@ function getSearch() {
 </script>
 <template>
   <!-- set onChange on select, input add debounce -->
-  <form @submit.prevent>
+  <form @submit.prevent class="p-5 flex gap-2">
     <input
       type="text"
       v-model="search"
+      placeholder="Search a country"
       class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5"
     />
-    <select name="regions" v-model="selectedRegion" @change="getRegion">
+    <select
+      name="regions"
+      v-model="selectedRegion"
+      @change="getRegion"
+      class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5"
+    >
       <option v-for="region in regions" :key="region" :value="region">{{ region }}</option>
     </select>
   </form>

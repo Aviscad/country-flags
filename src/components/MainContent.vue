@@ -21,7 +21,9 @@ const getCountries = () => {
   //   })
   //console.log(Object.keys(countries))
   //console.log(Object.entries(countries))
-  Object.entries(countries).map((c) => data.value.push(c[1]))
+  if (data.value.length === 0) {
+    Object.entries(countries).map((c) => data.value.push(c[1]))
+  }
   countryList.value = data.value
 }
 
@@ -61,10 +63,12 @@ watch(searchText, (val) => {
 getCountries()
 </script>
 <template>
-  <main class="p-5">
+  <main>
     <SearchBar @search="searchText = $event" @region="selectedRegion = $event" />
-    {{ searchResultText() }}
-    <section class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center">
+    <section
+      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-5"
+    >
+      {{ searchResultText() }}
       <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
     </section>
   </main>
