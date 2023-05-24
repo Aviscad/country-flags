@@ -1,7 +1,12 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-const props = defineProps(['info'])
+import { useRoute } from 'vue-router'
+//const props = defineProps(['info'])
 const emit = defineEmits(['close'])
+//const router = useRouter()
+const route = useRoute()
+
+console.log(route.params.name)
 
 const dialog = ref(null)
 
@@ -28,13 +33,14 @@ onMounted(() => {
     @keydown.delete="close"
   >
     <button @click="close" class="border border-gray-500 rounded-md px-2">Back</button>
-    <div>
-      <h3>{{ props.info.name.common }}</h3>
-      <img
-        class="object-cover w-[250px] h-40"
+    <div class="flex flex-col items-center justify-center">
+      {{ route.params.name }}
+      <!-- <img
+        class="object-cover h-52 w-full"
         :src="props.info.flags.svg && props.info.flags.png"
         :alt="props.info.flags.alt && `Image of the flag of ${props.info.name.common}`"
       />
+    </div><h3>{{ props.info.name.common }}</h3> -->
     </div>
   </div>
 </template>

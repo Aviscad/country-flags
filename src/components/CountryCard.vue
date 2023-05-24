@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import InformationCard from './InformationCard.vue'
 
 const props = defineProps(['info'])
+const router = useRouter()
 
 const showMoreInfo = ref(false)
 
@@ -10,8 +12,9 @@ const getCapitalName = computed(() => {
   return props.info.capital == undefined ? 'not found' : props.info.capital[0]
 })
 
-const clicked = (val = true) => {
-  showMoreInfo.value = val
+const clicked = () => {
+  router.push({ name: 'country', params: { name: props.info.name.common} })
+  //showMoreInfo.value = val
 }
 </script>
 <template>
