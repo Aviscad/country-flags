@@ -1,40 +1,27 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-const props = defineProps(['info'])
-const emit = defineEmits(['close'])
+import { useRouter, useRoute } from 'vue-router'
+import { useGetCountry } from '../composables/useGetCountry'
+import { useGetCountries } from '../composables/useGetCountries'
+const route = useRoute()
+const router = useRouter()
 
-const dialog = ref(null)
-
-document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
+const { info } = useGetCountries()
+const { country } = useGetCountry(route.params.name, info)
 
 const close = () => {
-  document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden')
-  emit('close', false)
+  router.push({ name: 'home' })
 }
-
-onMounted(() => {
-  dialog.value.focus()
-})
 </script>
 <template>
-  <!-- Modal gets lost when scrolling -->
-  <div
-    class="fixed left-0 bottom-0 top-[60px] h-full w-full bg-slate-200 z-10 p-5 outline-none"
-    tabindex="0"
-    ref="dialog"
-    role="dialog"
-    aria-hidden="true"
-    @keydown.esc="close"
-    @keydown.delete="close"
-  >
+  <div class="fixed left-0 bottom-0 top-[60px] h-full w-full bg-slate-200 z-10 p-5 outline-none">
     <button @click="close" class="border border-gray-500 rounded-md px-2">Back</button>
-    <div>
-      <h3>{{ props.info.name.common }}</h3>
+    <div class="flex flex-col items-center justify-center">
       <img
-        class="object-cover w-[250px] h-40"
-        :src="props.info.flags.svg && props.info.flags.png"
-        :alt="props.info.flags.alt && `Image of the flag of ${props.info.name.common}`"
+        class="object-cover"
+        :src="country.flags.svg && country.flags.png"
+        :alt="country.flags.alt && `Image of the flag of ${country.name.common}`"
       />
     </div>
+    <h3>{{ country.name.common }}</h3>
   </div>
 </template>
