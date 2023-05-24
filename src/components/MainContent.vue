@@ -24,11 +24,10 @@ const filterByRegion = () => {
 
 const searchByCountry = () => {
   countryList.value = countryList.value.filter(
-    (country) =>
-      country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
-      (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) &&
-        country.region === selectedRegion.value)
-  )
+    (country) => country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
+            (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) && 
+            country.region === selectedRegion.value)
+    )
 }
 
 const searchResultText = () => {

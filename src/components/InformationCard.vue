@@ -21,6 +21,7 @@ const close = () => {
         :src="country.flags.svg && country.flags.png"
         :alt="country.flags.alt && `Image of the flag of ${country.name.common}`"
       />
+    </div><h3>{{ props.info.name.common }}</h3> -->
     </div>
     <h3>{{ country.name.common }}</h3>
   </div>
