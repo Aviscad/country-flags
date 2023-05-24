@@ -1,21 +1,19 @@
 <script setup>
-import { ref, computed } from 'vue'
-import InformationCard from './InformationCard.vue'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps(['info'])
-
-const showMoreInfo = ref(false)
+const router = useRouter()
 
 const getCapitalName = computed(() => {
   return props.info.capital == undefined ? 'not found' : props.info.capital[0]
 })
 
-const clicked = (val = true) => {
-  showMoreInfo.value = val
+const clicked = () => {
+  router.push({ name: 'country', params: { name: props.info.name.common } })
 }
 </script>
 <template>
-  <InformationCard :info="props.info" v-if="showMoreInfo" @close="clicked($event)" />
   <figure
     class="max-w-[250px] rounded-md overflow-hidden shadow-md transition-transform cursor-pointer hover:scale-105"
     @click="clicked"

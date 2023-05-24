@@ -1,22 +1,17 @@
 <script setup>
 import CountryCard from './CountryCard.vue'
 import SearchBar from './SearchBar.vue'
-import { countries } from '../data/countriesV3.1.json'
+import { useGetCountries } from '../composables/useGetCountries'
 import { ref, watch } from 'vue'
 
-const data = ref([])
+const { info } = useGetCountries()
+
+const data = ref(info)
 const countryList = ref(null)
 const searchText = ref('')
-const selectedRegion = ref('')
+const selectedRegion = ref('All')
 
-const getCountries = () => {
-  if (data.value.length === 0) {
-    Object.entries(countries).forEach((c) => data.value.push(c[1]))
-    countryList.value = data.value
-  } else {
-    countryList.value = data.value
-  }
-}
+countryList.value = data.value
 
 const filterByRegion = () => {
   if (!selectedRegion.value) return
@@ -29,11 +24,10 @@ const filterByRegion = () => {
 
 const searchByCountry = () => {
   countryList.value = countryList.value.filter(
-    (country) =>
-      country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
-      (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) &&
-        country.region === selectedRegion.value)
-  )
+    (country) => country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
+            (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) && 
+            country.region === selectedRegion.value)
+    )
 }
 
 const searchResultText = () => {
@@ -52,14 +46,11 @@ watch(selectedRegion, (val) => {
 })
 
 watch(searchText, (val) => {
-  if (!val) {
-      filterByRegion()
-  } else {
-      searchByCountry()
+  filterByRegion()
+  if (val !== '') {
+    searchByCountry()
   }
 })
-
-getCountries()
 </script>
 <template>
   <main>
