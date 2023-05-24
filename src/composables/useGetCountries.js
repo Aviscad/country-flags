@@ -5,7 +5,6 @@ export function useGetCountries() {
   const info = ref([])
 
   const getCountries = () => {
-    console.log('hi')
     if (info.value.length === 0) {
       Object.entries(countries).forEach((c) => info.value.push(c[1]))
     }
