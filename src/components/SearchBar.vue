@@ -16,7 +16,6 @@ watch(
 )
 
 function getRegion() {
-  search.value = ''
   emit('region', selectedRegion.value)
 }
 

@@ -10,33 +10,29 @@ const searchText = ref('')
 const selectedRegion = ref('')
 
 const getCountries = () => {
-  // fetch('https://restcountries.com/v3.1/all')
-  //   .then((json) => json.json())
-  //   .then((res) => {
-  //     data.value = res
-  //   })
-  //   .catch((err) => console.log(err))
-  //   .finally(() => {
-  //     countryList.value = data.value
-  //   })
-  //console.log(Object.keys(countries))
-  //console.log(Object.entries(countries))
   if (data.value.length === 0) {
-    Object.entries(countries).map((c) => data.value.push(c[1]))
+    Object.entries(countries).forEach((c) => data.value.push(c[1]))
+    countryList.value = data.value
+  } else {
+    countryList.value = data.value
   }
-  countryList.value = data.value
 }
 
 const filterByRegion = () => {
   if (!selectedRegion.value) return
-  countryList.value = data.value.filter((country) => country.region === selectedRegion.value)
+  if (selectedRegion.value == 'All') {
+    countryList.value = data.value
+  } else {
+    countryList.value = data.value.filter((country) => country.region === selectedRegion.value)
+  }
 }
 
 const searchByCountry = () => {
   countryList.value = countryList.value.filter(
     (country) =>
-      country.name.common.includes(searchText.value) ||
-      country.name.official.includes(searchText.value)
+      country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
+      (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) &&
+        country.region === selectedRegion.value)
   )
 }
 
@@ -49,14 +45,17 @@ const searchResultText = () => {
 
 watch(selectedRegion, (val) => {
   if (!val) return
-  val == 'All' ? getCountries() : filterByRegion()
+  filterByRegion()
+  if (searchText.value != '') {
+    searchByCountry()
+  }
 })
 
 watch(searchText, (val) => {
-  if (val === '') {
-    getCountries()
+  if (!val) {
+      filterByRegion()
   } else {
-    searchByCountry()
+      searchByCountry()
   }
 })
 
