@@ -13,15 +13,20 @@ const close = () => {
 }
 </script>
 <template>
-  <div class="fixed left-0 bottom-0 top-[60px] h-full w-full bg-slate-200 z-10 p-5 outline-none">
-    <button @click="close" class="border border-gray-500 rounded-md px-2">Back</button>
-    <div class="flex flex-col items-center justify-center">
+  <div class="relative h-screen w-full bg-slate-200 z-10 p-5 outline-none pt-20">
+    <button @click="close" class="border border-gray-500 rounded-md px-2">&#8592; Back</button>
+    <div class="flex flex-col items-center justify-center p-5">
       <img
         class="object-cover"
         :src="country.flags.svg && country.flags.png"
         :alt="country.flags.alt && `Image of the flag of ${country.name.common}`"
       />
-    <h3>{{ country.name.common }}</h3>
+      <h3>{{ country.name.common }}</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit obcaecati repudiandae
+        pariatur ad, voluptatibus dolorum beatae quia, nisi repellendus optio dolor eius ipsum odit
+        sapiente est nesciunt. Quo, quaerat aut.
+      </p>
     </div>
   </div>
 </template>
