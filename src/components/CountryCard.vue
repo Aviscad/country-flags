@@ -1,13 +1,12 @@
 <script setup>
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useGetCapital } from '../composables/useGetCapitalName'
+import { useFormatNum } from '../composables/useFormatNum'
 
 const props = defineProps(['info'])
 const router = useRouter()
-
-const getCapitalName = computed(() => {
-  return props.info.capital == undefined ? 'not found' : props.info.capital[0]
-})
+const { getCapitalName } = useGetCapital()
+const { formatNum } = useFormatNum()
 
 const clicked = () => {
   router.push({ name: 'country', params: { name: props.info.name.common } })
@@ -26,9 +25,9 @@ const clicked = () => {
     <figcaption class="flex flex-col p-5 border-t-slate-200 border-t-[1.5px] h-44">
       <h2 class="text-lg font-bold py-1">{{ props.info.name.common }}</h2>
       <div>
-        <p><span class="font-semibold">Population:</span> {{ props.info.population }}</p>
+        <p><span class="font-semibold">Population:</span> {{ formatNum(props.info.population) }}</p>
         <p><span class="font-semibold">Region:</span> {{ props.info.region }}</p>
-        <p><span class="font-semibold">Capital:</span> {{ getCapitalName }}</p>
+        <p><span class="font-semibold">Capital:</span> {{ getCapitalName(props.info.capital) }}</p>
       </div>
     </figcaption>
   </figure>
