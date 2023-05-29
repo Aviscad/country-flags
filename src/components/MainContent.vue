@@ -24,10 +24,11 @@ const filterByRegion = () => {
 
 const searchByCountry = () => {
   countryList.value = countryList.value.filter(
-    (country) => country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
-            (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) && 
-            country.region === selectedRegion.value)
-    )
+    (country) =>
+      country.name.common.toLowerCase().includes(searchText.value.toLowerCase()) ||
+      (country.name.official.toLowerCase().includes(searchText.value.toLowerCase()) &&
+        country.region === selectedRegion.value)
+  )
 }
 
 const searchResultText = () => {
@@ -55,12 +56,12 @@ watch(searchText, (val) => {
 <template>
   <main>
     <section
-      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-5 pt-16 w-full"
+      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-3 pt-16 w-full"
     >
       <SearchBar
         @search="searchText = $event"
         @region="selectedRegion = $event"
-        class="w-full col-span-full row-span-full"
+        class="w-full col-span-full row-span-full place-content-center sm:place-content-start"
       />
       {{ searchResultText() }}
       <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
