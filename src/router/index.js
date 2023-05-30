@@ -3,11 +3,19 @@ import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: 'Where in the World?',
+        isPublic: true
+      }
     },
     {
       path: '/country/:name',
@@ -18,6 +26,11 @@ const router = createRouter({
       component: () => import('../components/InformationCard.vue')
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  window.document.title = to.meta.title ? to.meta.title : `${to.params.name}`
+  next()
 })
 
 export default router
