@@ -15,7 +15,7 @@ const { formatNum } = useFormatNum()
 
 const countryData = ref([])
 
-watchEffect(()=>{
+watchEffect(() => {
   const { country } = useGetCountry(route.params.name, info)
   countryData.value = country.value
 })
@@ -44,54 +44,71 @@ const getLanguages = (languages) => {
   return helper.join(', ').trim()
 }
 
-const getNativeName = computed(()=>{
-  return Object.keys(countryData.value.name.nativeName)[0] != undefined ? countryData.value.name.nativeName[Object.keys(countryData.value.name.nativeName)[0]].official : '---'
+const getNativeName = computed(() => {
+  return Object.keys(countryData.value.name.nativeName)[0] != undefined
+    ? countryData.value.name.nativeName[Object.keys(countryData.value.name.nativeName)[0]].official
+    : '---'
 })
 
 const back = () => {
   router.go(-1)
 }
-
 </script>
 <template>
-  <div class="relative min-h-screen w-full bg-slate-200 z-10 p-5 outline-none pt-20">
-    <button @click="back" class="border border-gray-500 rounded-md px-3 py-0.5 text-center">&#8592; Back</button>
-    <div class="flex flex-col gap-5 p-5 leading-loose">
-      <img
-        class="object-cover max-w-[300px] max-h-[200px]"
-        :src="countryData.flags.svg && countryData.flags.png"
-        :alt="countryData.flags.alt && `Image of the flag of ${countryData.name.common}`"
-      />
-      <h3 class="font-semibold text-2xl">{{ countryData.name.common }}</h3>
-
+  <div class="relative min-h-screen w-full p-5 pt-20">
+    <button
+      @click="back"
+      class="rounded-md px-3 py-0.5 text-center m-1 ml-5 shadow shadow-slate-400 flex items-center gap-0.5 max-w-fit"
+    >
+      <font-awesome-icon icon="fa-solid fa-chevron-left" class="h-3.5 w-3.5" />
+      Back
+    </button>
+    <div
+      class="flex flex-col items-center gap-6 md:flex-row md:items-center lg:items-center relative p-5 pt-20"
+    >
       <div>
-        <p><span class="font-medium">Native Name:</span> {{ getNativeName }}</p>
-        <p>
-          <span class="font-medium">Population:</span>
-          {{ formatNum(countryData.population) }}
-        </p>
-        <p><span class="font-medium">Region:</span> {{ countryData.region }}</p>
-        <p><span class="font-medium">Sub-Region:</span> {{ countryData.subregion }}</p>
-        <p><span class="font-medium">Capital:</span> {{ getCapitalName(countryData.capital) }}</p>
+        <img
+          class="object-cover h-[200px] md:h-[250px] md:w-[450px] lg:w-[600px] lg:h-[400px] border border-slate-400"
+          :src="countryData.flags.svg || countryData.flags.png"
+          :alt="countryData.flags.alt || `Image of the flag of ${countryData.name.common}`"
+        />
       </div>
-      <div>
-        <p>
-          <span class="font-medium">Top Level Domain: </span>
-          <i>{{ getTopLvlDomains(countryData.tld) }}</i>
-        </p>
-        <p>
-          <span class="font-medium">Currencies:</span> {{ getCurrencies(countryData.currencies) }}
-        </p>
-        <p><span class="font-medium">Languagues:</span> {{ getLanguages(countryData.languages) }}</p>
-      </div>
-      <div>
-        <p>
-          <span class="font-medium">Border Countries: {{  countryData.borders.length===0 ? '---' : '' }}</span>
-        </p>
-        <div class="flex flex-row gap-1.5 flex-wrap">
-           <BorderCountry v-for="(border, i) in countryData.borders" :key="i" :border="border" /> 
+      <div class="grid gap-3 w-[300px] p-5 md:grid-cols-2 md:gap-7 lg:w-[550px]">
+        <h3 class="font-semibold text-2xl mb-1 md:col-span-full lg:text-3xl">
+          {{ countryData.name.common }}
+        </h3>
+        <div>
+          <p><span class="font-medium">Native Name:</span> {{ getNativeName }}</p>
+          <p>
+            <span class="font-medium">Population:</span>
+            {{ formatNum(countryData.population) }}
+          </p>
+          <p><span class="font-medium">Region:</span> {{ countryData.region }}</p>
+          <p><span class="font-medium">Sub-Region:</span> {{ countryData.subregion }}</p>
+          <p><span class="font-medium">Capital:</span> {{ getCapitalName(countryData.capital) }}</p>
         </div>
-       
+        <div>
+          <p>
+            <span class="font-medium">Top Level Domain: </span>
+            <i>{{ getTopLvlDomains(countryData.tld) }}</i>
+          </p>
+          <p>
+            <span class="font-medium">Currencies:</span> {{ getCurrencies(countryData.currencies) }}
+          </p>
+          <p>
+            <span class="font-medium">Languagues:</span> {{ getLanguages(countryData.languages) }}
+          </p>
+        </div>
+        <div class="md:col-span-full">
+          <p>
+            <span class="font-medium"
+              >Border Countries: {{ countryData.borders.length === 0 ? '---' : '' }}</span
+            >
+          </p>
+          <div class="flex flex-row gap-1.5 flex-wrap py-2">
+            <BorderCountry v-for="(border, i) in countryData.borders" :key="i" :border="border" />
+          </div>
+        </div>
       </div>
     </div>
   </div>

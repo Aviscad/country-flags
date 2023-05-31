@@ -61,7 +61,7 @@ watch(searchText, (val) => {
       <SearchBar
         @search="searchText = $event"
         @region="selectedRegion = $event"
-        class="w-full col-span-full row-span-full place-content-center sm:place-content-start"
+        class="w-full col-span-full row-span-full place-content-center sm:place-content-start lg:place-content-between"
       />
       {{ searchResultText() }}
       <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
