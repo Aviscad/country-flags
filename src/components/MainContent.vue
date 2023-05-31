@@ -34,7 +34,7 @@ const searchByCountry = () => {
 const searchResultText = () => {
   if (countryList.value !== null)
     return countryList.value.length === 0 && searchText.value !== ''
-      ? `We couldn't find a contry called ${searchText.value}`
+      ? `We couldn't find a country with the text `
       : ''
 }
 
@@ -63,7 +63,11 @@ watch(searchText, (val) => {
         @region="selectedRegion = $event"
         class="w-full col-span-full row-span-full place-content-center sm:place-content-start lg:place-content-between"
       />
-      {{ searchResultText() }}
+      <small
+        v-if="countryList.length === 0 && searchText !== ''"
+        class="text-sm text-red-500 col-span-full italic"
+        >{{ searchResultText() }} <span class="font-bold">{{ searchText + '...' }}</span>
+      </small>
       <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
     </section>
   </main>

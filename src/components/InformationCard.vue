@@ -55,20 +55,20 @@ const back = () => {
 }
 </script>
 <template>
-  <div class="relative min-h-screen w-full p-5 pt-20">
+  <div class="relative min-h-screen w-full pt-20 grid place-content-center md:pt-10 lg:pt-0">
     <button
       @click="back"
-      class="rounded-md px-3 py-0.5 text-center m-1 ml-5 shadow shadow-slate-400 flex items-center gap-0.5 max-w-fit"
+      class="rounded-md px-4 py-1 m-1 ml-5 shadow shadow-slate-400 flex items-center justify-center gap-1 max-w-fit"
     >
       <font-awesome-icon icon="fa-solid fa-chevron-left" class="h-3.5 w-3.5" />
       Back
     </button>
     <div
-      class="flex flex-col items-center gap-6 md:flex-row md:items-center lg:items-center relative p-5 pt-20"
+      class="flex flex-col items-center p-5 pt-10 gap-10 md:flex-row md:items-center lg:items-center xl:gap-28"
     >
       <div>
         <img
-          class="object-cover h-[200px] md:h-[250px] md:w-[450px] lg:w-[600px] lg:h-[400px] border border-slate-400"
+          class="object-cover h-[200px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300"
           :src="countryData.flags.svg || countryData.flags.png"
           :alt="countryData.flags.alt || `Image of the flag of ${countryData.name.common}`"
         />
@@ -106,7 +106,11 @@ const back = () => {
             >
           </p>
           <div class="flex flex-row gap-1.5 flex-wrap py-2">
-            <BorderCountry v-for="(border, i) in countryData.borders" :key="i" :border="border" />
+            <BorderCountry
+              v-for="border in countryData.borders"
+              :key="countryData.name.common + '-' + border"
+              :border="border"
+            />
           </div>
         </div>
       </div>

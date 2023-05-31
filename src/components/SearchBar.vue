@@ -23,14 +23,13 @@ function getSearch() {
 }
 </script>
 <template>
-  <!-- set onChange on select, input add debounce -->
   <form @submit.prevent class="p-3 flex gap-2">
     <div class="relative">
       <input
         type="text"
         v-model="search"
         placeholder="Search a country...."
-        class="border w-72 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 lg:w-96"
+        class="border w-52 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 md:w-72 lg:w-96"
       />
       <font-awesome-icon
         icon="fa-solid fa-magnifying-glass"
