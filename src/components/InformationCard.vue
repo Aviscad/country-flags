@@ -15,9 +15,20 @@ const { formatNum } = useFormatNum()
 
 const countryData = ref([])
 
-watchEffect(() => {
-  const { country } = useGetCountry(route.params.name, info)
-  countryData.value = country.value
+watchEffect(async () => {
+  try {
+    const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
+    if (country.ok) {
+      const response = await country.json()
+      countryData.value = await response[0]
+    } else {
+      const { country } = useGetCountry(route.params.name, info)
+      countryData.value = country.value
+    }
+  } catch (error) {
+    const { country } = useGetCountry(route.params.name, info)
+    countryData.value = country.value
+  }
 })
 
 const getTopLvlDomains = (domains) => {
@@ -29,6 +40,7 @@ const getTopLvlDomains = (domains) => {
 }
 
 const getCurrencies = (currencies) => {
+  if (currencies === undefined) return '---'
   let helper = []
   Object.values(currencies).forEach((currency) => {
     helper.push(`${currency.name} (${currency.symbol})`)
@@ -37,6 +49,7 @@ const getCurrencies = (currencies) => {
 }
 
 const getLanguages = (languages) => {
+  if (languages === undefined) return '---'
   let helper = []
   Object.values(languages).forEach((language) => {
     helper.push(language)
@@ -45,6 +58,7 @@ const getLanguages = (languages) => {
 }
 
 const getNativeName = computed(() => {
+  if (countryData.value.name.nativeName == undefined) return '---'
   return Object.keys(countryData.value.name.nativeName)[0] != undefined
     ? countryData.value.name.nativeName[Object.keys(countryData.value.name.nativeName)[0]].official
     : '---'
@@ -65,10 +79,11 @@ const back = () => {
     </button>
     <div
       class="flex flex-col items-center p-5 pt-10 gap-10 md:flex-row md:items-center lg:items-center xl:gap-28"
+      v-if="countryData.length != 0"
     >
       <div>
         <img
-          class="object-cover h-[200px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300"
+          class="object-cover h-[200px] w-[300px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300"
           :src="countryData.flags.svg || countryData.flags.png"
           :alt="countryData.flags.alt || `Image of the flag of ${countryData.name.common}`"
         />
@@ -102,7 +117,7 @@ const back = () => {
         <div class="md:col-span-full">
           <p>
             <span class="font-medium"
-              >Border Countries: {{ countryData.borders.length === 0 ? '---' : '' }}</span
+              >Border Countries: {{ countryData.borders == undefined ? '---' : '' }}</span
             >
           </p>
           <div class="flex flex-row gap-1.5 flex-wrap py-2">

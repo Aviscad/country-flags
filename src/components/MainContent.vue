@@ -2,23 +2,44 @@
 import CountryCard from './CountryCard.vue'
 import SearchBar from './SearchBar.vue'
 import { useGetCountries } from '../composables/useGetCountries'
-import { ref, watch } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 
 const { info } = useGetCountries()
 
 const data = ref(info)
+const apiData = ref(null)
 const countryList = ref(null)
 const searchText = ref('')
 const selectedRegion = ref('All')
 
 countryList.value = data.value
 
+watchEffect(async () => {
+  try {
+    const country = await fetch('https://restcountries.com/v3.1/all/')
+    if (country.ok) {
+      const response = await country.json()
+      const data = await response
+      countryList.value = data
+      apiData.value = data
+    } else {
+      countryList.value = data.value
+    }
+  } catch (error) {
+    countryList.value = data.value
+  }
+})
+
 const filterByRegion = () => {
   if (!selectedRegion.value) return
   if (selectedRegion.value == 'All') {
-    countryList.value = data.value
+    apiData.value == null ? (countryList.value = data.value) : (countryList.value = apiData.value)
   } else {
-    countryList.value = data.value.filter((country) => country.region === selectedRegion.value)
+    if (apiData.value != null) {
+      countryList.value = apiData.value.filter((country) => country.region === selectedRegion.value)
+    } else {
+      countryList.value = data.value.filter((country) => country.region === selectedRegion.value)
+    }
   }
 }
 
@@ -68,7 +89,9 @@ watch(searchText, (val) => {
         class="text-sm text-red-500 col-span-full italic"
         >{{ searchResultText() }} <span class="font-bold">{{ searchText + '...' }}</span>
       </small>
-      <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
+      <template v-if="countryList != null">
+        <CountryCard v-for="country in countryList" :key="country.ccn3" :info="country" />
+      </template>
     </section>
   </main>
 </template>
