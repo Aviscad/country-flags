@@ -1,17 +1,29 @@
 <script setup>
-import { ref, watch } from 'vue'
-import debounce from 'lodash.debounce'
+import { ref } from 'vue'
+//import debounce from 'lodash.debounce'
+import { watchDebounced } from '@vueuse/core'
 const emit = defineEmits(['search', 'region'])
 
 const search = ref('')
 const regions = ref(['All', 'Asia', 'Europe', 'Africa', 'Americas', 'Antarctic', 'Oceania'])
 const selectedRegion = ref('All')
 
-watch(
+// watch(
+//   search,
+//   debounce(() => {
+//     getSearch()
+//   }, 500)
+// )
+
+watchDebounced(
   search,
-  debounce(() => {
+  () => {
     getSearch()
-  }, 500)
+  },
+  {
+    debounce: 1000,
+    maxWait: 1500
+  }
 )
 
 function getRegion() {

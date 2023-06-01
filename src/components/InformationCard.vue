@@ -69,7 +69,10 @@ const back = () => {
 }
 </script>
 <template>
-  <div class="relative min-h-screen w-full pt-20 grid place-content-center md:pt-10 lg:pt-0">
+  <div
+    v-if="countryData.length != 0"
+    class="relative min-h-screen w-full pt-20 grid place-content-center md:pt-10 lg:pt-0"
+  >
     <button
       @click="back"
       class="rounded-md px-4 py-1 m-1 ml-5 shadow shadow-slate-400 flex items-center justify-center gap-1 max-w-fit"
@@ -79,7 +82,6 @@ const back = () => {
     </button>
     <div
       class="flex flex-col items-center p-5 pt-10 gap-10 md:flex-row md:items-center lg:items-center xl:gap-28"
-      v-if="countryData.length != 0"
     >
       <div>
         <img

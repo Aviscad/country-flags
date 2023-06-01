@@ -1,9 +1,22 @@
 <script setup>
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+
+const setIcon = computed(() => {
+  return isDark.value ? 'fa-solid fa-sun' : 'fa-solid fa-moon'
+})
 </script>
 <template>
-  <header class="flex py-4 px-5 text-white bg-gray-800 justify-between text-lg fixed w-full z-50">
+  <header
+    class="flex py-4 px-5 justify-between bg-white text-lg fixed w-full z-50 shadow-md dark:bg-gray-800 dark:text-white"
+  >
     <RouterLink class="font-nunito font-bold" to="/">Where in the World?</RouterLink>
-    <div>Dark Mode</div>
+    <button @click="toggleDark()">
+      <font-awesome-icon :icon="setIcon" class="w-4 h-4 text-red-400" />
+    </button>
   </header>
 </template>
