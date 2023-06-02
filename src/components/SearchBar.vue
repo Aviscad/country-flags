@@ -41,7 +41,7 @@ function getSearch() {
         type="text"
         v-model="search"
         placeholder="Search a country...."
-        class="border w-52 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 md:w-72 lg:w-96"
+        class="text-light-font bg-light-background border w-52 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 md:w-72 lg:w-96 dark:text-white dark:bg-dark-elements"
       />
       <font-awesome-icon
         icon="fa-solid fa-magnifying-glass"
@@ -52,7 +52,7 @@ function getSearch() {
       name="regions"
       v-model="selectedRegion"
       @change="getRegion"
-      class="border w-40 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5"
+      class="text-light-font bg-light-background border w-40 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 dark:text-white dark:bg-dark-elements"
     >
       <option v-for="region in regions" :key="region" :value="region">{{ region }}</option>
     </select>

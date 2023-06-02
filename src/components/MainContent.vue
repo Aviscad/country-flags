@@ -77,7 +77,7 @@ watch(searchText, (val) => {
 <template>
   <main>
     <section
-      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-3 pt-16 w-full"
+      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-3 pt-16 w-full min-h-screen bg-light-background dark:bg-dark-background"
     >
       <SearchBar
         @search="searchText = $event"

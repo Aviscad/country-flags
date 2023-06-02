@@ -12,11 +12,11 @@ const setIcon = computed(() => {
 </script>
 <template>
   <header
-    class="flex py-4 px-5 justify-between bg-white text-lg fixed w-full z-50 shadow-md dark:bg-gray-800 dark:text-white"
+    class="flex py-4 px-5 justify-between bg-light-background text-light-font text-lg fixed w-full z-50 shadow-md dark:bg-dark-elements dark:text-white"
   >
     <RouterLink class="font-nunito font-bold" to="/">Where in the World?</RouterLink>
     <button @click="toggleDark()">
-      <font-awesome-icon :icon="setIcon" class="w-4 h-4 text-red-400" />
+      <font-awesome-icon :icon="setIcon" class="w-6 h-6 text-light-font dark:text-white" />
     </button>
   </header>
 </template>
