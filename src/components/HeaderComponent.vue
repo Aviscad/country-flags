@@ -17,16 +17,13 @@ const setIcon = computed(() => {
     <RouterLink class="font-nunito font-bold" to="/">Where in the World?</RouterLink>
     <button
       @click="toggleDark()"
-      class="bg w-12 flex items-center p-1 rounded-2xl transition-all border border-gray-300"
+      class="bg w-12 flex items-center p-1 rounded-2xl transition-all border border-gray-300 dark:border-none dark:bg-dark-background"
       :class="{
         'justify-start': !isDark,
         'justify-end': isDark
       }"
     >
-      <font-awesome-icon
-        :icon="setIcon"
-        class="w-4 h-4 rounded-full p-0.5"
-      />
+      <font-awesome-icon :icon="setIcon" class="w-4 h-4 rounded-full p-0.5" />
     </button>
   </header>
 </template>
