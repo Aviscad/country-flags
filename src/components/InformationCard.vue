@@ -71,21 +71,21 @@ const back = () => {
 <template>
   <div
     v-if="countryData.length != 0"
-    class="relative min-h-screen w-full pt-20 grid place-content-center md:pt-10 lg:pt-0"
+    class="relative min-h-screen w-full pt-20 bg-light-background grid place-content-center dark:bg-dark-background"
   >
     <button
       @click="back"
-      class="rounded-md px-4 py-1 m-1 ml-5 shadow shadow-slate-400 flex items-center justify-center gap-1 max-w-fit"
+      class="btn"
     >
       <font-awesome-icon icon="fa-solid fa-chevron-left" class="h-3.5 w-3.5" />
       Back
     </button>
     <div
-      class="flex flex-col items-center p-5 pt-10 gap-10 md:flex-row md:items-center lg:items-center xl:gap-28"
+      class="flex flex-col items-center p-5 pt-10 gap-10 md:flex-row md:items-center lg:items-center xl:gap-28 dark:text-white"
     >
       <div>
         <img
-          class="object-cover h-[200px] w-[300px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300"
+          class="object-cover h-[200px] w-[300px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300 dark:border-none"
           :src="countryData.flags.svg || countryData.flags.png"
           :alt="countryData.flags.alt || `Image of the flag of ${countryData.name.common}`"
         />
@@ -132,5 +132,15 @@ const back = () => {
         </div>
       </div>
     </div>
+  </div>
+  <div
+    v-else
+    class="relative min-h-screen w-full bg-light-background grid place-content-center place-items-center dark:bg-dark-background"
+  > 
+    <div class="flex items-center justify-center p-5 gap-1 text-light-font dark:text-white">
+      <font-awesome-icon icon="fa-solid fa-spinner" size="lg" class="animate-spin" /> 
+      <span class="italic">Loading...</span>   
+    </div>
+    
   </div>
 </template>

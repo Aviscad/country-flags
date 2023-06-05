@@ -35,7 +35,7 @@ watchEffect(async () => {
 </script>
 <template>
   <button
-    class="flex-grow text-center px-3 py-1 rounded-md font-light shadow shadow-slate-400"
+    class="flex-grow text-center bg-white px-3 py-1 rounded-md font-light shadow shadow-slate-400 dark:bg-dark-elements dark:text-white dark:shadow-slate-500"
     @click="goToBorder"
   >
     {{ countryName }}
