@@ -15,8 +15,18 @@ const setIcon = computed(() => {
     class="flex py-4 px-5 justify-between bg-light-background text-light-font text-lg fixed w-full z-50 shadow-md dark:bg-dark-elements dark:text-white"
   >
     <RouterLink class="font-nunito font-bold" to="/">Where in the World?</RouterLink>
-    <button @click="toggleDark()">
-      <font-awesome-icon :icon="setIcon" class="w-6 h-6 text-light-font dark:text-white" />
+    <button
+      @click="toggleDark()"
+      class="bg w-12 flex items-center p-1 rounded-2xl transition-all border border-gray-300"
+      :class="{
+        'justify-start': !isDark,
+        'justify-end': isDark
+      }"
+    >
+      <font-awesome-icon
+        :icon="setIcon"
+        class="w-4 h-4 rounded-full p-0.5"
+      />
     </button>
   </header>
 </template>

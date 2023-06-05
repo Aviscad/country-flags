@@ -73,10 +73,7 @@ const back = () => {
     v-if="countryData.length != 0"
     class="relative min-h-screen w-full pt-20 bg-light-background grid place-content-center dark:bg-dark-background"
   >
-    <button
-      @click="back"
-      class="btn"
-    >
+    <button @click="back" class="btn">
       <font-awesome-icon icon="fa-solid fa-chevron-left" class="h-3.5 w-3.5" />
       Back
     </button>
@@ -136,11 +133,10 @@ const back = () => {
   <div
     v-else
     class="relative min-h-screen w-full bg-light-background grid place-content-center place-items-center dark:bg-dark-background"
-  > 
+  >
     <div class="flex items-center justify-center p-5 gap-1 text-light-font dark:text-white">
-      <font-awesome-icon icon="fa-solid fa-spinner" size="lg" class="animate-spin" /> 
-      <span class="italic">Loading...</span>   
+      <font-awesome-icon icon="fa-solid fa-spinner" size="lg" class="animate-spin" />
+      <span class="italic">Loading...</span>
     </div>
-    
   </div>
 </template>

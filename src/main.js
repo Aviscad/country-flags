@@ -4,7 +4,13 @@ import '../styles.css'
 import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faMagnifyingGlass, faChevronLeft, faSun, faMoon, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {
+  faMagnifyingGlass,
+  faChevronLeft,
+  faSun,
+  faMoon,
+  faSpinner
+} from '@fortawesome/free-solid-svg-icons'
 
 library.add(faMagnifyingGlass)
 library.add(faChevronLeft)
