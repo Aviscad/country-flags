@@ -77,7 +77,11 @@ watch(searchText, (val) => {
 <template>
   <main>
     <section
-      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] place-items-center p-3 pt-16 w-full min-h-screen bg-light-background dark:bg-dark-background"
+      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] p-3 pt-16 min-h-screen bg-light-background dark:bg-dark-background"
+      :class="{
+        'gap-0 place-items-start': countryList.length === 0 && searchText !== '',
+        'place-items-center': countryList.length > 0
+      }"
     >
       <SearchBar
         @search="searchText = $event"
@@ -86,7 +90,7 @@ watch(searchText, (val) => {
       />
       <small
         v-if="countryList.length === 0 && searchText !== ''"
-        class="text-sm text-red-500 col-span-full italic"
+        class="text-sm text-red-500 w-full col-span-full italic text-center"
         >{{ searchResultText() }} <span class="font-bold">{{ searchText + '...' }}</span>
       </small>
       <template v-if="countryList != null">

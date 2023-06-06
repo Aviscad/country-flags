@@ -71,7 +71,7 @@ const back = () => {
 <template>
   <div
     v-if="countryData.length != 0"
-    class="relative min-h-screen w-full pt-20 bg-light-background grid place-content-center dark:bg-dark-background"
+    class="min-h-screen w-full pt-20 bg-light-background grid place-content-center dark:bg-dark-background"
   >
     <button @click="back" class="btn">
       <font-awesome-icon icon="fa-solid fa-chevron-left" class="h-3.5 w-3.5" />

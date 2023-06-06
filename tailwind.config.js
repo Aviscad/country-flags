@@ -11,7 +11,7 @@ export default {
         'nunito': ['Nunito Sans', 'sans-serif']
       },
       colors: {
-        'dark-elements': 'hsl(209, 23%, 22%)',
+        'dark-elements': 'hsl(209, 23%, 25%)',
         'dark-background': 'hsl(207, 26%, 17%)',
         'light-font': 'hsl(200, 15%, 8%)',
         'light-input': 'hsl(0, 0%, 52%)',
