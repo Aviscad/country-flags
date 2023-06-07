@@ -33,7 +33,7 @@ function getSearch() {
         type="text"
         v-model="search"
         placeholder="Search a country...."
-        class="text-light-font bg-light-background border w-52 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 md:w-72 lg:w-96 dark:text-white dark:bg-dark-elements dark:border-none"
+        class="text-light-font bg-light-background border w-60 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 md:w-72 lg:w-96 dark:text-white dark:bg-dark-elements dark:border-none"
       />
       <font-awesome-icon
         icon="fa-solid fa-magnifying-glass"

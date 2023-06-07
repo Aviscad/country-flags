@@ -16,7 +16,9 @@ countryList.value = data.value
 
 watchEffect(async () => {
   try {
-    const country = await fetch('https://restcountries.com/v3.1/all/')
+    const country = await fetch(
+      'https://restcountries.com/v3.1/all?fields=name,flags,capital,population,region'
+    )
     if (country.ok) {
       const response = await country.json()
       const data = await response
@@ -77,10 +79,11 @@ watch(searchText, (val) => {
 <template>
   <main>
     <section
-      class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] p-3 pt-16 min-h-screen bg-light-background dark:bg-dark-background"
+      class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] p-3 pt-16 min-h-screen bg-light-background dark:bg-dark-background"
       :class="{
         'gap-0 place-items-start': countryList.length === 0 && searchText !== '',
-        'place-items-center': countryList.length > 0
+        'gap-8 place-items-center':countryList.length > 1,
+        'gap-8 grid-cols-1 place-items-center': countryList.length === 1
       }"
     >
       <SearchBar
