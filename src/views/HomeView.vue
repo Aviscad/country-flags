@@ -3,7 +3,7 @@ import MainContent from '../components/MainContent.vue'
 </script>
 
 <template>
-  <main>
-    <MainContent />
-  </main>
+	<main>
+		<MainContent />
+	</main>
 </template>
