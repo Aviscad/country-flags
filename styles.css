@@ -6,3 +6,7 @@
 html {
   @apply scroll-smooth;
 }
+
+.btn {
+  @apply bg-white rounded-md px-4 py-1 m-1 ml-5 shadow shadow-slate-400 flex items-center justify-center gap-1 max-w-fit dark:bg-dark-elements dark:text-white dark:shadow-slate-500;
+}
