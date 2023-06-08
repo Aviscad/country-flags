@@ -8,14 +8,14 @@ const router = useRouter()
 const { getCapitalName } = useGetCapital()
 const { formatNum } = useFormatNum()
 
-const clicked = () => {
+const toCountryDetails = () => {
   router.push({ name: 'country', params: { name: props.info.name.common } })
 }
 </script>
 <template>
   <figure
     class="max-w-[250px] text-light-font rounded-md overflow-hidden shadow-md transition-transform cursor-pointer hover:scale-105 dark:text-white"
-    @click="clicked"
+    @click="toCountryDetails"
   >
     <img
       class="object-cover w-[250px] h-40"

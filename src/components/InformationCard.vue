@@ -15,22 +15,6 @@ const { formatNum } = useFormatNum()
 
 const countryData = ref([])
 
-watchEffect(async () => {
-  try {
-    const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
-    if (country.ok) {
-      const response = await country.json()
-      countryData.value = await response[0]
-    } else {
-      const { country } = useGetCountry(route.params.name, info)
-      countryData.value = country.value
-    }
-  } catch (error) {
-    const { country } = useGetCountry(route.params.name, info)
-    countryData.value = country.value
-  }
-})
-
 const getTopLvlDomains = (domains) => {
   let helper = []
   domains.forEach((domain) => {
@@ -57,6 +41,10 @@ const getLanguages = (languages) => {
   return helper.join(', ').trim()
 }
 
+const back = () => {
+  router.go(-1)
+}
+
 const getNativeName = computed(() => {
   if (countryData.value.name.nativeName == undefined) return '---'
   return Object.keys(countryData.value.name.nativeName)[0] != undefined
@@ -64,9 +52,21 @@ const getNativeName = computed(() => {
     : '---'
 })
 
-const back = () => {
-  router.go(-1)
-}
+watchEffect(async () => {
+  try {
+    const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
+    if (country.ok) {
+      const response = await country.json()
+      countryData.value = await response[0]
+    } else {
+      const { country } = useGetCountry(route.params.name, info)
+      countryData.value = country.value
+    }
+  } catch (error) {
+    const { country } = useGetCountry(route.params.name, info)
+    countryData.value = country.value
+  }
+})
 </script>
 <template>
   <div

@@ -4,10 +4,11 @@ import { useRouter } from 'vue-router'
 import { useGetByCCA3 } from '../composables/useGetByCCA3'
 import { useGetCountries } from '../composables/useGetCountries'
 
-const props = defineProps(['border'])
-const countryName = ref('')
-
 const router = useRouter()
+
+const props = defineProps(['border'])
+
+const countryName = ref('')
 
 const goToBorder = () => {
   router.push({ name: 'country', params: { name: countryName.value } })
