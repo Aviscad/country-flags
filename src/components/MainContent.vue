@@ -149,7 +149,13 @@ watch(searchText, (val) => {
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-left" />
 				</button>
-				<span class="font-bold p-2">{{ page }}</span>
+				
+				<!-- <span v-if="page+1 == maxPages" class="font-bold p-2">{{ page+2 <= maxPages ? page + 2 : page-1  }}</span> -->
+				<span class="font-bold p-2" :class="{
+					'bg-blue-400': page==page
+				}">{{ page }}</span>
+				<span class="font-bold p-2">{{ page+1 <= maxPages ? page + 1 : page-2 }}</span>
+				<span class="font-bold p-2">{{ page+2 <= maxPages ? page + 2 : page-1  }}</span>
 				<button
 					class="px-2 text-gray-500"
 					:class="{
