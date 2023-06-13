@@ -2,8 +2,8 @@
 
 <template>
 	<div
-		class="min-h-screen w-full pt-20 bg-light-background grid place-content-center dark:bg-dark-background"
+		class="min-h-screen w-full pt-20 bg-light-background grid place-content-center dark:bg-dark-background dark:text-white"
 	>
-		Hello!
+		Page Not Found
 	</div>
 </template>

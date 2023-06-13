@@ -69,7 +69,7 @@ const searchByCountry = () => {
 const searchResultText = () => {
 	if (countryData.value !== null)
 		return countryList.value.length === 0 && searchText.value !== ''
-			? `We couldn't find a country with the text `
+			? `Sorry, we couldn't find a country with the text `
 			: ''
 }
 
@@ -81,6 +81,32 @@ const previousPage = () => {
 const nextPage = () => {
 	if (page.value === maxPages.value) return
 	page.value++
+}
+
+const toPage = (pageNumber) => {
+	if (!pageNumber) return
+	page.value = pageNumber
+}
+
+const getPageNumber = (pageSegment = 1) => {
+	/*
+		1: First Number in Pagination
+		2: Second Number in Pagination
+		3: Third Number in Pagination
+	*/
+	if (pageSegment === 1) {
+		return page.value >= maxPages.value - 2 ? maxPages.value - 2 : page.value
+	} else if (pageSegment === 2) {
+		return page.value >= maxPages.value - 1 ? maxPages.value - 1 : page.value + 1
+	} else if (pageSegment === 3) {
+		if (page.value == maxPages.value) {
+			return maxPages.value
+		} else if (page.value <= maxPages.value - 2) {
+			return page.value + 2
+		} else {
+			return maxPages.value
+		}
+	}
 }
 
 watchEffect(async () => {
@@ -123,11 +149,9 @@ watch(searchText, (val) => {
 <template>
 	<main>
 		<section
-			class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] auto-rows-max p-3 pt-16 min-h-screen bg-light-background dark:bg-dark-background"
+			class="grid gap-3.5 place-items-center grid-cols-[repeat(auto-fit,minmax(250px,1fr))] auto-rows-max p-3 pt-16 min-h-screen bg-light-background dark:bg-dark-background"
 			:class="{
-				'gap-0 place-items-start auto-rows-auto': countryList.length === 0 && searchText !== '',
-				'gap-3.5 place-items-center': countryList.length > 1,
-				'place-items-start': countryList.length === 1
+				'place-items-start': countryList.length == 0 && searchText != ''
 			}"
 		>
 			<SearchBar
@@ -137,7 +161,7 @@ watch(searchText, (val) => {
 			/>
 			<div
 				v-if="countryList.length > 0 && maxPages > 1"
-				class="w-full col-span-full text-end px-4 py-1 select-none dark:text-white"
+				class="w-full col-span-full text-center px-4 py-1 select-none dark:text-white sm:text-end"
 			>
 				<button
 					class="px-2 text-gray-500"
@@ -149,15 +173,33 @@ watch(searchText, (val) => {
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-left" />
 				</button>
-				
-				<!-- <span v-if="page+1 == maxPages" class="font-bold p-2">{{ page+2 <= maxPages ? page + 2 : page-1  }}</span> -->
-				<span class="font-bold p-2" :class="{
-					'bg-blue-400': page==page
-				}">{{ page }}</span>
-				<span class="font-bold p-2">{{ page+1 <= maxPages ? page + 1 : page-2 }}</span>
-				<span class="font-bold p-2">{{ page+2 <= maxPages ? page + 2 : page-1  }}</span>
+				<span
+					v-if="getPageNumber(1)>0"
+					class="page-item"
+					:class="{
+						'selected-page': getPageNumber(1) == page
+					}"
+					@click="toPage(getPageNumber(1))"
+					>{{ getPageNumber(1) }}</span
+				>
+				<span
+					class="page-item"
+					:class="{
+						'selected-page': getPageNumber(2) == page
+					}"
+					@click="toPage(getPageNumber(2))"
+					>{{ getPageNumber(2) }}</span
+				>
+				<span
+					class="page-item"
+					:class="{
+						'selected-page': getPageNumber(3) == page
+					}"
+					@click="toPage(getPageNumber(3))"
+					>{{ getPageNumber(3) }}</span
+				>
 				<button
-					class="px-2 text-gray-500"
+					class="page-item"
 					:class="{
 						'cursor-not-allowed': page === maxPages
 					}"
@@ -170,7 +212,7 @@ watch(searchText, (val) => {
 
 			<small
 				v-if="countryList.length === 0 && searchText !== ''"
-				class="text-sm text-red-500 w-full col-span-full italic text-center"
+				class="p-10 text-sm text-red-500 w-full col-span-full italic text-center"
 				>{{ searchResultText() }} <span class="font-bold">{{ searchText + '...' }}</span>
 			</small>
 			<template v-if="countryList != null">
