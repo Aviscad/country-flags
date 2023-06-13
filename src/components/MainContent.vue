@@ -174,7 +174,7 @@ watch(searchText, (val) => {
 					<font-awesome-icon icon="fa-solid fa-angle-left" />
 				</button>
 				<span
-					v-if="getPageNumber(1)>0"
+					v-if="getPageNumber(1) > 0"
 					class="page-item"
 					:class="{
 						'selected-page': getPageNumber(1) == page
