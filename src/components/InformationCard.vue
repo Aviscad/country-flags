@@ -45,6 +45,10 @@ const back = () => {
 	router.go(-1)
 }
 
+const toNotFound = () => {
+	router.push({ name: 'notfound' })
+}
+
 const getNativeName = computed(() => {
 	if (countryData.value.name.nativeName == undefined) return '---'
 	return Object.keys(countryData.value.name.nativeName)[0] != undefined
@@ -61,10 +65,12 @@ watchEffect(async () => {
 		} else {
 			const { country } = useGetCountry(route.params.name, info)
 			countryData.value = country.value
+			if (!countryData.value) toNotFound()
 		}
 	} catch (error) {
 		const { country } = useGetCountry(route.params.name, info)
 		countryData.value = country.value
+		if (!countryData.value) toNotFound()
 	}
 })
 </script>
