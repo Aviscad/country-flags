@@ -45,6 +45,10 @@ const back = () => {
 	router.go(-1)
 }
 
+const toNotFound = () => {
+	router.push({ name: 'notfound' })
+}
+
 const getNativeName = computed(() => {
 	if (countryData.value.name.nativeName == undefined) return '---'
 	return Object.keys(countryData.value.name.nativeName)[0] != undefined
@@ -54,17 +58,19 @@ const getNativeName = computed(() => {
 
 watchEffect(async () => {
 	try {
-		const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
+		const country = await fetch('https://restcountries.com/v3.1/namffe/' + route.params.name)
 		if (country.ok) {
 			const response = await country.json()
 			countryData.value = await response[0]
 		} else {
 			const { country } = useGetCountry(route.params.name, info)
 			countryData.value = country.value
+			if (!countryData.value) toNotFound()
 		}
 	} catch (error) {
 		const { country } = useGetCountry(route.params.name, info)
 		countryData.value = country.value
+		if (!countryData.value) toNotFound()
 	}
 })
 </script>

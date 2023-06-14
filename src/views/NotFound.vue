@@ -4,22 +4,25 @@ import { RouterLink } from 'vue-router'
 
 <template>
 	<div
-		class="min-h-screen w-full text-center pt-20 bg-light-background grid place-content-center place-items-center dark:bg-dark-background"
+		class="min-h-screen w-full text-center pt-20 pb-10 flex flex-col gap-2 items-center justify-center dark:bg-dark-background sm:flex-row"
 	>
-		<p class="font-semibold text-gray-600 p-3 dark:text-gray-600">
-			We're not sure how you got here, but we couln't find what you were looking for...
-		</p>
 		<img
-			class="max-w-[275px]"
+			class="max-w-[275px] md:max-w-[350px]"
 			src="@/assets/404.png"
 			alt="Image of a Broken Robot with a not Found Error"
 		/>
-		<RouterLink
-			to="/"
-			class="bg-orange-200 rounded-full px-2 mt-2 py-1 hover:bg-orange-300"
-			>Go Back Home</RouterLink
-		>
+		<div class="flex flex-col items-center md:max-w-[500px] md:items-start">
+			<p class="text-lg text-gray-600 p-3 dark:text-gray-300 md:text-xl md:text-left">
+				We're not sure how you got here, but we couldn't find what you were looking for...
+			</p>
+			<RouterLink
+				to="/"
+				class="btn"
+				><font-awesome-icon
+					icon="fa-solid fa-chevron-left"
+					class="h-3.5 w-3.5"
+				/>Go Back Home</RouterLink
+			>
+		</div>
 	</div>
 </template>
-
-<!-- <a href="https://storyset.com/web">Web illustrations by Storyset</a>-->
