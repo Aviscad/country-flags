@@ -58,7 +58,7 @@ const getNativeName = computed(() => {
 
 watchEffect(async () => {
 	try {
-		const country = await fetch('https://restcountries.com/v3.1/namffe/' + route.params.name)
+		const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
 		if (country.ok) {
 			const response = await country.json()
 			countryData.value = await response[0]
