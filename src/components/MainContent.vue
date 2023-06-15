@@ -199,11 +199,11 @@ watch(searchText, (val) => {
 					>{{ getPageNumber(3) }}</span
 				>
 				<button
-					class="page-item"
+					class="px-2 text-gray-500"
+					:disabled="page === maxPages"
 					:class="{
 						'cursor-not-allowed': page === maxPages
 					}"
-					:disabled="page === maxPages"
 					@click="nextPage"
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-right" />
