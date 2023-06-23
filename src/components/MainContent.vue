@@ -171,6 +171,7 @@ watch(searchText, (val) => {
 					}"
 					@click="previousPage"
 					tabindex="0"
+					aria-label="Previous Page"
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-left" />
 				</button>
@@ -181,6 +182,7 @@ watch(searchText, (val) => {
 						'selected-page': getPageNumber(1) == page
 					}"
 					role="button"
+					@keydown.enter="toPage(getPageNumber(1))"
 					tabindex="0"
 					@click="toPage(getPageNumber(1))"
 					>{{ getPageNumber(1) }}</span
@@ -192,6 +194,7 @@ watch(searchText, (val) => {
 					}"
 					role="button"
 					tabindex="0"
+					@keydown.enter="toPage(getPageNumber(2))"
 					@click="toPage(getPageNumber(2))"
 					>{{ getPageNumber(2) }}</span
 				>
@@ -202,6 +205,7 @@ watch(searchText, (val) => {
 					}"
 					role="button"
 					tabindex="0"
+					@keydown.enter="toPage(getPageNumber(3))"
 					@click="toPage(getPageNumber(3))"
 					>{{ getPageNumber(3) }}</span
 				>
@@ -213,6 +217,7 @@ watch(searchText, (val) => {
 					:disabled="page === maxPages"
 					@click="nextPage"
 					tabindex="0"
+					aria-label="Next Page"
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-right" />
 				</button>
