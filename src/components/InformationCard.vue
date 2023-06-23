@@ -82,6 +82,7 @@ watchEffect(async () => {
 		<button
 			@click="back"
 			class="btn"
+			tabindex="0"
 		>
 			<font-awesome-icon
 				icon="fa-solid fa-chevron-left"

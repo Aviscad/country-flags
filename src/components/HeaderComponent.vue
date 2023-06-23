@@ -26,6 +26,7 @@ const setIcon = computed(() => {
 				'justify-start': !isDark,
 				'justify-end': isDark
 			}"
+			tabindex="0"
 		>
 			<font-awesome-icon
 				:icon="setIcon"

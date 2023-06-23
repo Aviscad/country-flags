@@ -38,6 +38,7 @@ watchDebounced(
 				v-model="search"
 				placeholder="Search a country...."
 				class="text-light-font bg-light-background border w-60 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pl-10 sm:w-72 md:w-80 lg:w-96 dark:text-white dark:bg-dark-elements dark:border-none"
+				tabindex="0"
 			/>
 			<font-awesome-icon
 				icon="fa-solid fa-magnifying-glass"
@@ -48,6 +49,7 @@ watchDebounced(
 			name="regions"
 			v-model="selectedRegion"
 			@change="getRegion"
+			tabindex="0"
 			class="text-light-font bg-light-background border w-40 border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 dark:text-white dark:bg-dark-elements dark:border-none"
 		>
 			<option
