@@ -32,7 +32,7 @@ watchDebounced(
 		@submit.prevent
 		class="p-3 flex gap-2 flex-col sm:flex-row"
 	>
-		<label class="flex items-center gap-2 w-full sm:w-auto">
+		<label class="flex items-center gap-2 w-full sm:w-auto dark:text-white">
 			Search:
 			<div class="relative w-full">
 				<input
@@ -49,7 +49,7 @@ watchDebounced(
 			</div>
 		</label>
 
-		<label class="flex items-center gap-2">
+		<label class="flex items-center gap-2 dark:text-white">
 			Filter By:
 			<select
 				name="regions"
