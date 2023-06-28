@@ -16,6 +16,9 @@ const toCountryDetails = () => {
 	<figure
 		class="max-w-[250px] text-light-font rounded-md overflow-hidden shadow-md transition-transform cursor-pointer hover:scale-105 dark:text-white"
 		@click="toCountryDetails"
+		@keydown.enter="toCountryDetails"
+		role="button"
+		tabindex="0"
 	>
 		<img
 			class="object-cover w-[250px] h-40"

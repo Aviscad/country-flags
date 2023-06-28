@@ -1,6 +1,5 @@
 <script setup>
-import { computed, watchEffect, ref } from 'vue'
-import BorderCountry from './BorderCountry.vue'
+import { computed, watchEffect, ref, defineAsyncComponent } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useGetCountry } from '../composables/useGetCountry'
 import { useGetCountries } from '../composables/useGetCountries'
@@ -49,6 +48,8 @@ const toNotFound = () => {
 	router.push({ name: 'notfound' })
 }
 
+const AsyncBorderCountry = defineAsyncComponent(() => import('./BorderCountry.vue'))
+
 const getNativeName = computed(() => {
 	if (countryData.value.name.nativeName == undefined) return '---'
 	return Object.keys(countryData.value.name.nativeName)[0] != undefined
@@ -82,6 +83,7 @@ watchEffect(async () => {
 		<button
 			@click="back"
 			class="btn"
+			tabindex="0"
 		>
 			<font-awesome-icon
 				icon="fa-solid fa-chevron-left"
@@ -132,7 +134,7 @@ watchEffect(async () => {
 						>
 					</p>
 					<div class="flex flex-row gap-1.5 flex-wrap py-2">
-						<BorderCountry
+						<AsyncBorderCountry
 							v-for="border in countryData.borders"
 							:key="countryData.name.common + '-' + border"
 							:border="border"

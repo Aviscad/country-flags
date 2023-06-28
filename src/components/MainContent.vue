@@ -2,7 +2,7 @@
 import CountryCard from './CountryCard.vue'
 import SearchBar from './SearchBar.vue'
 import { useGetCountries } from '../composables/useGetCountries'
-import { ref, watch, watchEffect } from 'vue'
+import { ref, watch, watchEffect, onUpdated } from 'vue'
 
 const { info } = useGetCountries()
 
@@ -12,6 +12,7 @@ const countryList = ref([])
 const countryRegion = ref(null) //Helper
 const countryData = ref(null) //Full Data, Local or API
 const page = ref(1)
+const navigation = ref(null)
 const maxPages = ref(0)
 const itemsPerPage = ref(25)
 const searchText = ref('')
@@ -145,6 +146,25 @@ watch(searchText, (val) => {
 		searchByCountry()
 	}
 })
+
+onUpdated(() => {
+	//Handling aria-current dynamically
+	if (navigation.value) {
+		const children = Object.values(navigation.value.children)
+		children.pop() //Removing NextPage Node
+		children.shift() //Reemoving PreviousPage Node
+
+		children.forEach((child) => {
+			const childClasses = child.classList
+			if (childClasses.contains('selected-page')) {
+				child.setAttribute('aria-current', page.value)
+			} else {
+				if (child.hasAttribute('aria-current')) child.removeAttribute('aria-current')
+				return
+			}
+		})
+	}
+})
 </script>
 <template>
 	<main>
@@ -153,15 +173,18 @@ watch(searchText, (val) => {
 			:class="{
 				'place-items-start': countryList.length == 0 && searchText != ''
 			}"
+			aria-label="List of Countries with General Information About them"
 		>
 			<SearchBar
 				@search="searchText = $event"
 				@region="selectedRegion = $event"
 				class="w-full col-span-full row-span-full place-content-center sm:place-content-between lg:place-content-between"
 			/>
-			<div
+			<nav
+				ref="navigation"
 				v-if="countryList.length > 0 && maxPages > 1"
 				class="w-full col-span-full text-center px-4 py-1 select-none dark:text-white sm:text-end"
+				aria-label="Pagination"
 			>
 				<button
 					class="px-2 text-gray-500"
@@ -170,6 +193,8 @@ watch(searchText, (val) => {
 						'cursor-not-allowed': page === 1
 					}"
 					@click="previousPage"
+					tabindex="0"
+					aria-label="Previous Page"
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-left" />
 				</button>
@@ -179,6 +204,10 @@ watch(searchText, (val) => {
 					:class="{
 						'selected-page': getPageNumber(1) == page
 					}"
+					role="button"
+					tabindex="0"
+					:aria-label="'Page ' + getPageNumber(1)"
+					@keydown.enter="toPage(getPageNumber(1))"
 					@click="toPage(getPageNumber(1))"
 					>{{ getPageNumber(1) }}</span
 				>
@@ -187,6 +216,10 @@ watch(searchText, (val) => {
 					:class="{
 						'selected-page': getPageNumber(2) == page
 					}"
+					role="button"
+					tabindex="0"
+					:aria-label="'Page ' + getPageNumber(2)"
+					@keydown.enter="toPage(getPageNumber(2))"
 					@click="toPage(getPageNumber(2))"
 					>{{ getPageNumber(2) }}</span
 				>
@@ -195,6 +228,10 @@ watch(searchText, (val) => {
 					:class="{
 						'selected-page': getPageNumber(3) == page
 					}"
+					role="button"
+					tabindex="0"
+					:aria-label="'Page ' + getPageNumber(3)"
+					@keydown.enter="toPage(getPageNumber(3))"
 					@click="toPage(getPageNumber(3))"
 					>{{ getPageNumber(3) }}</span
 				>
@@ -205,10 +242,12 @@ watch(searchText, (val) => {
 						'cursor-not-allowed': page === maxPages
 					}"
 					@click="nextPage"
+					tabindex="0"
+					aria-label="Next Page"
 				>
 					<font-awesome-icon icon="fa-solid fa-angle-right" />
 				</button>
-			</div>
+			</nav>
 
 			<small
 				v-if="countryList.length === 0 && searchText !== ''"
