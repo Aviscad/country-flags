@@ -159,7 +159,8 @@ onUpdated(() => {
 			if (childClasses.contains('selected-page')) {
 				child.setAttribute('aria-current', page.value)
 			} else {
-				child.removeAttribute('aria-current')
+				if (child.hasAttribute('aria-current')) child.removeAttribute('aria-current')
+				return
 			}
 		})
 	}
@@ -172,6 +173,7 @@ onUpdated(() => {
 			:class="{
 				'place-items-start': countryList.length == 0 && searchText != ''
 			}"
+			aria-label="List of Countries with General Information About them"
 		>
 			<SearchBar
 				@search="searchText = $event"

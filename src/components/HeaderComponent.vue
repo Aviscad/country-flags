@@ -14,11 +14,13 @@ const setIcon = computed(() => {
 	<header
 		class="flex py-4 px-5 justify-between bg-light-background text-light-font text-lg fixed w-full z-30 shadow-md dark:bg-dark-elements dark:text-white"
 	>
-		<RouterLink
-			class="font-nunito font-bold"
-			to="/"
-			>Where in the World?</RouterLink
-		>
+		<h1>
+			<RouterLink
+				class="font-nunito font-bold"
+				to="/"
+				>Where in the World?</RouterLink
+			>
+		</h1>
 		<label class="flex text-sm items-center gap-2 select-none">
 			Dark Mode
 			<button
@@ -32,6 +34,7 @@ const setIcon = computed(() => {
 				type="button"
 				role="switch"
 				:aria-checked="isDark"
+				aria-label="Toggle Dark Mode Theme"
 				tabindex="0"
 			>
 				<font-awesome-icon
