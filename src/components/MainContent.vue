@@ -237,10 +237,10 @@ onUpdated(() => {
 				>
 				<button
 					class="px-2 text-gray-500"
+					:disabled="page === maxPages"
 					:class="{
 						'cursor-not-allowed': page === maxPages
 					}"
-					:disabled="page === maxPages"
 					@click="nextPage"
 					tabindex="0"
 					aria-label="Next Page"
