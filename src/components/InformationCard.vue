@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watchEffect, ref, defineAsyncComponent } from 'vue'
+import { computed, ref, defineAsyncComponent, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useGetCountry } from '../composables/useGetCountry'
 import { useGetCountries } from '../composables/useGetCountries'
@@ -13,6 +13,8 @@ const { getCapitalName } = useGetCapital()
 const { formatNum } = useFormatNum()
 
 const countryData = ref([])
+const flag = ref(null)
+const details = ref(null)
 
 const getTopLvlDomains = (domains) => {
 	let helper = []
@@ -57,23 +59,55 @@ const getNativeName = computed(() => {
 		: '---'
 })
 
-watchEffect(async () => {
-	try {
-		const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
-		if (country.ok) {
-			const response = await country.json()
-			countryData.value = await response[0]
-		} else {
+watch(flag, () => {
+	setTimeout(() => {
+		flag.value.classList.remove('animate-slideLeft')
+	}, 500)
+})
+
+watch(details, () => {
+	setTimeout(() => {
+		details.value.classList.remove('animate-fade')
+	}, 500)
+})
+
+watch(
+	() => route.params,
+	async () => {
+		try {
+			if (flag.value != null && details.value != null) {
+				flag.value.classList.remove('animate-slideLeft')
+				details.value.classList.remove('animate-fade')
+			}
+
+			const country = await fetch('https://restcountries.com/v3.1/name/' + route.params.name)
+			if (country.ok) {
+				const response = await country.json()
+				//Default Waiting Time for Loader
+				setTimeout(async () => {
+					countryData.value = await response[0]
+
+					if (flag.value != null && details.value != null) {
+						flag.value.classList.add('animate-slideLeft')
+						details.value.classList.add('animate-fade')
+					}
+				}, 200)
+			} else {
+				const { country } = useGetCountry(route.params.name, info)
+				countryData.value = country.value
+				if (!countryData.value) toNotFound()
+			}
+		} catch (error) {
 			const { country } = useGetCountry(route.params.name, info)
 			countryData.value = country.value
 			if (!countryData.value) toNotFound()
 		}
-	} catch (error) {
-		const { country } = useGetCountry(route.params.name, info)
-		countryData.value = country.value
-		if (!countryData.value) toNotFound()
+	},
+	{
+		deep: true,
+		immediate: true
 	}
-})
+)
 </script>
 <template>
 	<div
@@ -96,12 +130,16 @@ watchEffect(async () => {
 		>
 			<div>
 				<img
-					class="object-cover h-[200px] w-[300px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300 dark:border-none"
+					ref="flag"
+					class="animate-slideLeft object-cover h-[200px] w-[300px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300 dark:border-none"
 					:src="countryData.flags.svg || countryData.flags.png"
 					:alt="countryData.flags.alt || `Image of the flag of ${countryData.name.common}`"
 				/>
 			</div>
-			<div class="grid gap-3 w-[300px] p-5 md:grid-cols-2 md:gap-7 lg:w-[550px]">
+			<div
+				ref="details"
+				class="animate-fade grid gap-3 w-[300px] p-5 md:grid-cols-2 md:gap-7 lg:w-[550px]"
+			>
 				<h3 class="font-semibold text-2xl mb-1 md:col-span-full lg:text-3xl">
 					{{ countryData.name.common }}
 				</h3>

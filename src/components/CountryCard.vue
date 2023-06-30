@@ -14,7 +14,7 @@ const toCountryDetails = () => {
 </script>
 <template>
 	<figure
-		class="max-w-[250px] text-light-font rounded-md overflow-hidden shadow-md transition-transform cursor-pointer hover:scale-105 dark:text-white"
+		class="max-w-[250px] text-light-font rounded-md overflow-hidden shadow-md transition-transform cursor-pointer hover:-translate-y-2 dark:text-white"
 		@click="toCountryDetails"
 		@keydown.enter="toCountryDetails"
 		role="button"
