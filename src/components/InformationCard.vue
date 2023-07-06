@@ -133,7 +133,7 @@ watch(
 					ref="flag"
 					class="animate-slideLeft object-cover h-[200px] w-[300px] md:h-[250px] md:w-[450px] lg:w-[700px] lg:h-[400px] border border-slate-300 dark:border-none"
 					:src="countryData.flags.svg || countryData.flags.png"
-					:alt="countryData.flags.alt || `Image of the flag of ${countryData.name.common}`"
+					:alt="countryData.flags.alt || `${countryData.name.common} Flag`"
 				/>
 			</div>
 			<div
