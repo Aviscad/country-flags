@@ -182,7 +182,7 @@ onUpdated(() => {
 			/>
 			<nav
 				ref="navigation"
-				v-if="countryList.length > 0 && maxPages > 1"
+				v-if="countryList.length > 0 && maxPages > 1 && searchText == ''"
 				class="w-full col-span-full text-center px-4 py-1 select-none dark:text-white sm:text-end"
 				aria-label="Pagination"
 			>
@@ -254,6 +254,7 @@ onUpdated(() => {
 				class="p-10 text-sm text-red-500 w-full col-span-full italic text-center"
 				>{{ searchResultText() }} <span class="font-bold">{{ searchText + '...' }}</span>
 			</small>
+
 			<TransitionGroup name="fade">
 				<template v-if="countryList != null">
 					<CountryCard
