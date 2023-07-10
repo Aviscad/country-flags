@@ -14,7 +14,7 @@ const countryData = ref(null) //Full Data, Local or API
 const page = ref(1)
 const navigation = ref(null)
 const maxPages = ref(0)
-const itemsPerPage = ref(25)
+const itemsPerPage = ref(20)
 const searchText = ref('')
 const selectedRegion = ref('All')
 
@@ -113,7 +113,7 @@ const getPageNumber = (pageSegment = 1) => {
 watchEffect(async () => {
 	try {
 		const country = await fetch(
-			'https://restcountries.com/v3.1/all?fields=name,flags,capital,population,region'
+			'https://restcountries.com/v3.1/all?fields=name,flags,capital,population,region,ccn3'
 		)
 		if (country.ok) {
 			const response = await country.json()
@@ -182,7 +182,7 @@ onUpdated(() => {
 			/>
 			<nav
 				ref="navigation"
-				v-if="countryList.length > 0 && maxPages > 1"
+				v-if="countryList.length > 0 && maxPages > 1 && searchText == ''"
 				class="w-full col-span-full text-center px-4 py-1 select-none dark:text-white sm:text-end"
 				aria-label="Pagination"
 			>
@@ -254,13 +254,34 @@ onUpdated(() => {
 				class="p-10 text-sm text-red-500 w-full col-span-full italic text-center"
 				>{{ searchResultText() }} <span class="font-bold">{{ searchText + '...' }}</span>
 			</small>
-			<template v-if="countryList != null">
-				<CountryCard
-					v-for="country in countryList"
-					:key="country.ccn3"
-					:info="country"
-				/>
-			</template>
+
+			<TransitionGroup name="fade">
+				<template v-if="countryList != null">
+					<CountryCard
+						v-for="country in countryList"
+						:key="country.ccn3"
+						:info="country"
+					/>
+				</template>
+			</TransitionGroup>
 		</section>
 	</main>
 </template>
+
+<style scoped>
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+	transition: all 1s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+
+.fade-leave-active {
+	position: absolute;
+	bottom: -100%;
+}
+</style>
