@@ -272,7 +272,7 @@ onUpdated(() => {
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {
-	transition: all 1s cubic-bezier(0.55, 0, 0.1, 1);
+	transition: all 1s ease-in-out;
 }
 
 .fade-enter-from,
@@ -282,6 +282,6 @@ onUpdated(() => {
 
 .fade-leave-active {
 	position: absolute;
-	bottom: -150%;
+	bottom: -100%;
 }
 </style>
