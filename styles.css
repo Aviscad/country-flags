@@ -16,7 +16,7 @@ html {
 }
 
 .page-item {
-	@apply font-bold py-1 px-3 max-w-[12px] h-2 rounded-full cursor-pointer;
+	@apply font-bold py-1 px-3 rounded-full cursor-pointer;
 }
 
 .page-item:last-child {
