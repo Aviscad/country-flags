@@ -6,6 +6,7 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
+  - [Screenshots](#screenshots)
   - [Links](#links)
 - [Built with](#built-with)
 - [Recommended IDE Setup](#recommended-ide-setup)
@@ -18,23 +19,39 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 
 Users should be able to:
 
-- See all countries from the API on the homepage
-- Search for a country using an `input` field
-- Filter countries by region
-- Click on a country to see more detailed information on a separate page
-- Click through to the border countries on the detail page
-- Toggle the color scheme between light and dark mode _(optional)_
+✅ See all countries from the API on the homepage.
+
+✅ Search for a country using an `input` field.
+
+✅ Filter countries by region.
+
+✅ Click on a country to see more detailed information on a separate page.
+
+✅ Click through to the border countries on the detail page.
+
+✅ Toggle the color scheme between light and dark mode _(optional)_.
 
 Extras:
 
-- Information about countries is paginated.
-- Navigate through different pages.
-- Change the number of countries per page.
-- Basic accessibility support.
+✅ Information about countries is paginated.
+
+✅ Navigate through different pages.
+
+✅ Change the number of countries per page.
+
+✅ Basic accessibility support.
 
 ### Links
 
 - [Live Demo](https://aviscad.github.io/country-flags/)
+
+### Screenshots
+
+<img src="https://github.com/Aviscad/country-flags/blob/development/showcase-images/large-full.png" width="915px">
+
+| Mobile                                                                                                             | Medium                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/Aviscad/country-flags/blob/development/showcase-images/small-full.png" width="250px"> | <img src="https://github.com/Aviscad/country-flags/blob/development/showcase-images/medium-full.png" width="625px"> |
 
 ## Built with
 
@@ -57,6 +74,8 @@ Extras:
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
+
+### Installation
 
 ```
 npm install

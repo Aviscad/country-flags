@@ -164,10 +164,7 @@ watchEffect(async () => {
 
 	//Sort A-Z
 	const collator = new Intl.Collator('en', { sensitivity: 'base' })
-
-	countryData.value = countryData.value.toSorted((a, b) =>
-		collator.compare(a.name.common, b.name.common)
-	)
+	countryData.value.sort((a, b) => collator.compare(a.name.common, b.name.common))
 
 	maxPages.value = Math.ceil(countryData.value.length / itemsPerPage.value)
 	getFlags()
@@ -358,7 +355,7 @@ onBeforeUnmount(() => {
 			<!-- Scroll Top -->
 			<Transition name="fade">
 				<button
-					v-if="showScroolTop"
+					v-if="showScroolTop && countryList.length != 0"
 					class="animate-bouncing w-11 h-11 border text-dark-elements fixed bottom-5 right-5 rounded-full z-30 bg-light-background dark:bg-dark-elements dark:text-white"
 					@click="scrollUp"
 				>
