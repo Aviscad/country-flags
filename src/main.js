@@ -13,7 +13,8 @@ import {
 	faAngleLeft,
 	faAngleRight,
 	faAnglesLeft,
-	faAnglesRight
+	faAnglesRight,
+	faArrowUp
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -25,7 +26,8 @@ library.add(
 	faChevronLeft,
 	faSun,
 	faMoon,
-	faSpinner
+	faSpinner,
+	faArrowUp
 )
 
 const app = createApp(App)

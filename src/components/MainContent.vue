@@ -2,7 +2,7 @@
 import CountryCard from './CountryCard.vue'
 import SearchBar from './SearchBar.vue'
 import { useGetCountries } from '../composables/useGetCountries'
-import { ref, watch, watchEffect, onUpdated, computed } from 'vue'
+import { ref, watch, watchEffect, computed, onUpdated, onMounted, onBeforeUnmount } from 'vue'
 
 const { info } = useGetCountries()
 
@@ -15,6 +15,7 @@ const page = ref(1)
 const navigation = ref(null)
 const maxPages = ref(0)
 const itemsPerPage = ref(20)
+const showScroolTop = ref(false)
 const searchText = ref('')
 const isNextpage = ref(null)
 const selectedRegion = ref('All')
@@ -93,6 +94,21 @@ const toPage = (pageNumber) => {
 	page.value = pageNumber
 }
 
+const scrollUp = () => {
+	window.scrollTo(0, 0)
+}
+
+const scrollPosition = () => {
+	const maxHeigth = window.document.body.offsetHeight - window.innerHeight
+	const currentPosition = window.scrollY
+
+	if (currentPosition > maxHeigth / 2 + 1) {
+		showScroolTop.value = true
+	} else {
+		showScroolTop.value = false
+	}
+}
+
 const getPageNumber = (pageSegment = 1) => {
 	/*
 		1: First Number in Pagination
@@ -124,7 +140,10 @@ const leaveActiveClass = computed(() => {
 	}
 })
 
-watch(itemsPerPage, getFlags)
+watch(itemsPerPage, () => {
+	isNextpage.value = null
+	getFlags()
+})
 
 watchEffect(async () => {
 	try {
@@ -171,6 +190,10 @@ watch(searchText, (val) => {
 	}
 })
 
+onMounted(() => {
+	window.addEventListener('scroll', scrollPosition)
+})
+
 onUpdated(() => {
 	//Handling aria-current dynamically
 	if (navigation.value) {
@@ -188,6 +211,10 @@ onUpdated(() => {
 			}
 		})
 	}
+})
+
+onBeforeUnmount(() => {
+	window.removeEventListener('scroll', scrollPosition)
 })
 </script>
 <template>
@@ -328,6 +355,19 @@ onUpdated(() => {
 					</template>
 				</TransitionGroup>
 			</article>
+			<!-- Scroll Top -->
+			<Transition name="fade">
+				<button
+					v-if="showScroolTop"
+					class="animate-bouncing w-11 h-11 border text-dark-elements fixed bottom-5 right-5 rounded-full z-30 bg-light-background dark:bg-dark-elements dark:text-white"
+					@click="scrollUp"
+				>
+					<font-awesome-icon
+						icon="fa-solid fa-arrow-up"
+						size="2xl"
+					/>
+				</button>
+			</Transition>
 		</section>
 	</main>
 </template>

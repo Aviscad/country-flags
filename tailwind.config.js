@@ -22,11 +22,16 @@ export default {
 				slide: {
 					'0%': { opacity: 0, transform: 'translate3d(-50%, 0, 0)' },
 					'100%': { opacity: 1, transform: 'translate3d(0, 0, 0)' }
+				},
+				bounce: {
+					'0%': { transform: 'translateY(-10px)' },
+					'100%': { transform: 'translateY(0)' }
 				}
 			},
 			animation: {
 				fade: 'fade .5s ease-in-out',
-				slideLeft: 'slide .5s ease-in-out'
+				slideLeft: 'slide .5s ease-in-out',
+				bouncing: 'bounce 2s ease-in-out infinite'
 			}
 		}
 	},
