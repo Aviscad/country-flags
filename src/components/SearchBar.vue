@@ -30,7 +30,7 @@ watchDebounced(
 <template>
 	<form
 		@submit.prevent
-		class="p-3 flex gap-2 flex-col sm:flex-row"
+		class="p-3 pb-0 flex gap-2 flex-col sm:flex-row xl:gap-4"
 	>
 		<label class="flex items-center gap-2 w-full sm:w-auto dark:text-white">
 			Search:
