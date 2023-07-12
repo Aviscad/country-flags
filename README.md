@@ -12,6 +12,7 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 - [Recommended IDE Setup](#recommended-ide-setup)
   - [Customize Configuration](#customize-configuration)
 - [Project Setup](#project-setup)
+- [Credits](#credits)
 
 ## Overview
 
@@ -110,3 +111,8 @@ npm run lint
 ```
 npm run format
 ```
+
+## Credits
+
+- [World icons created by turkkub - Flaticon](https://www.flaticon.com/free-icons/world)
+- [Web illustrations by Storyset](https://storyset.com/web)
