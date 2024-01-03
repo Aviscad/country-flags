@@ -2,7 +2,7 @@
 import CountryCard from './CountryCard.vue'
 import SearchBar from './SearchBar.vue'
 import { useGetCountries } from '../composables/useGetCountries'
-import { ref, watch, watchEffect, computed, onUpdated, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, watchEffect, computed, onUpdated, onMounted, onUnmounted } from 'vue'
 
 const { info } = useGetCountries()
 
@@ -210,7 +210,7 @@ onUpdated(() => {
 	}
 })
 
-onBeforeUnmount(() => {
+onUnmounted(() => {
 	window.removeEventListener('scroll', scrollPosition)
 })
 </script>
