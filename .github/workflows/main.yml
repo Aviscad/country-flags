@@ -39,10 +39,12 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Add CNAME file
+        run: echo 'www.manuelviscarra.com' > dist/CNAME 
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist repository
           path: './dist'
