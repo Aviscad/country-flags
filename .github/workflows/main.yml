@@ -21,9 +21,6 @@ jobs:
       - name: 🏗️ Build
         run: npm run build
 
-      - name: Add CNAME file
-        run: echo 'www.manuelviscarra.com' > dist/CNAME 
-
       - name: 🚀Deploy to GitHub Pages🚀  // --> this deploys to gh-pages
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
